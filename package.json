@@ -1,7 +1,9 @@
 {
-  "name": "my-app",
+  "name": "json-graph-view-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "json-graph-view 演示应用：将任意 JSON 可视化为关系图",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
