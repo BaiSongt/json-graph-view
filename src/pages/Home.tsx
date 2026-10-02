@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { JsonGraphView, THEMES, getTheme, type JgvEdgeStyle } from "@/json-graph-view";
-import { SAMPLE_A, SAMPLE_B, SAMPLE_C } from "@/samples";
+import { SAMPLE_A, SAMPLE_B, SAMPLE_C, SAMPLE_D } from "@/samples";
 import "../App.css";
 
 const SAMPLES = [
   { id: "a", name: "装备成果示例", text: SAMPLE_A },
   { id: "b", name: "软件项目示例", text: SAMPLE_B },
   { id: "c", name: "深层嵌套示例", text: SAMPLE_C },
+  { id: "d", name: "大数据量示例", text: SAMPLE_D },
 ];
 
 const EDGE_STYLES: Array<{ id: JgvEdgeStyle; name: string }> = [
@@ -85,6 +86,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [theme, setTheme] = useState("tech-blue");
   const [edgeStyle, setEdgeStyle] = useState<JgvEdgeStyle>("smoothstep");
+  const [showEdgeLabels, setShowEdgeLabels] = useState(true);
   const [search, setSearch] = useState("");
   const [panelW, setPanelW] = useState(360);
   const [collapsed, setCollapsed] = useState(false);
@@ -203,6 +205,14 @@ export default function Home() {
               </button>
             ))}
           </div>
+          <div className="demo-seg" title="连线关系标注（父字段名 / 数组下标）">
+            <button
+              className={`demo-seg-item ${showEdgeLabels ? "active" : ""}`}
+              onClick={() => setShowEdgeLabels((v) => !v)}
+            >
+              连线标注
+            </button>
+          </div>
           <ThemeSelect theme={theme} onChange={setTheme} />
         </div>
       </header>
@@ -256,7 +266,14 @@ export default function Home() {
           {data.error ? (
             <div className="demo-placeholder">JSON 解析失败，请修正左侧内容</div>
           ) : (
-            <JsonGraphView data={data.value} theme={theme} edgeStyle={edgeStyle} search={search} maxNodes={600} />
+            <JsonGraphView
+              data={data.value}
+              theme={theme}
+              edgeStyle={edgeStyle}
+              showEdgeLabels={showEdgeLabels}
+              search={search}
+              maxNodes={600}
+            />
           )}
         </section>
       </main>

@@ -6,6 +6,8 @@
 
 - **自动布局** —— 基于 dagre 自动分层排列节点，复杂数据一目了然
 - **节点联动** —— 点击图中的对象 / 数组节点，右侧面板即时展示对应的 JSON 数据块，含语法高亮、JSONPath 路径与一键复制
+- **连线关系标注** —— 连线上显示父子关系（父字段名 / 数组下标，如 `name`、`[0]`），可一键开关
+- **隐藏项独立展开** —— 超过行数上限的字段可在节点上单独「展开剩余 N 项 / 收起」；因节点数上限被截断的子树，可在对应节点单独「⊕ 展开被隐藏的子节点」，逐个补全而不影响其他部分
 - **搜索高亮** —— 输入关键字，命中节点高亮、其余变暗
 - **6 套主题** —— 4 深 2 浅，一键切换，整个界面（含演示外壳）跟随主题变化
 - **4 种连线样式** —— 平滑折线 / 贝塞尔曲线 / 直线 / 直角折线
@@ -58,6 +60,7 @@ export default function App() {
 | `data` | `unknown` | 必填 | 任意 JSON 值（对象 / 数组 / 原始值） |
 | `theme` | `string` | `"tech-blue"` | 主题 id，见下表 |
 | `edgeStyle` | `"smoothstep" \| "bezier" \| "straight" \| "step"` | `"smoothstep"` | 连线样式 |
+| `showEdgeLabels` | `boolean` | `true` | 连线上是否显示关系标注（父字段名 / 数组下标） |
 | `search` | `string` | `""` | 搜索关键字，命中节点高亮、其余变暗 |
 | `maxNodes` | `number` | `500` | 节点数量上限，超出自动截断并提示 |
 | `maxRows` | `number` | `6` | 单个节点内最多内联展示的字段行数 |
@@ -82,6 +85,7 @@ export default function App() {
 ```ts
 import { THEMES, getTheme } from "json-graph-view";   // 主题清单，可自行渲染切换器
 import { jsonToGraph } from "json-graph-view";        // 解析器，返回 { nodes, edges, hitLimit }
+import { expandNode } from "json-graph-view";         // 增量展开被截断的节点（自定义渲染时可用）
 ```
 
 ## 🛠️ 从源码构建

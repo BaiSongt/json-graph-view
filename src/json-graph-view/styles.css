@@ -159,6 +159,39 @@
   font-size: 11px;
 }
 
+/* ---------- 节点底部展开 / 收起按钮 ---------- */
+.jgv-row-toggle {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 2px;
+  padding: 4px 10px;
+  border: none;
+  border-top: 1px dashed var(--jgv-node-border);
+  background: transparent;
+  color: var(--jgv-text-dim);
+  font-size: 11px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+.jgv-row-toggle + .jgv-row-toggle {
+  border-top: none;
+  padding-top: 2px;
+}
+.jgv-row-toggle:hover {
+  color: var(--jgv-accent);
+  background: color-mix(in srgb, var(--jgv-accent) 8%, transparent);
+}
+.jgv-row-toggle-cut {
+  color: var(--jgv-accent);
+  opacity: 0.85;
+}
+.jgv-row-toggle-cut:hover {
+  opacity: 1;
+}
+
 .jgv-leaf {
   padding: 9px 12px;
   font-family: "JetBrains Mono", Consolas, monospace;
@@ -188,9 +221,11 @@
 .jgv-root .react-flow__edge-text {
   fill: var(--jgv-text-dim);
   font-size: 10px;
+  font-family: "JetBrains Mono", Consolas, monospace;
 }
 .jgv-root .react-flow__edge-textbg {
-  fill: transparent;
+  fill: var(--jgv-bg);
+  fill-opacity: 0.88;
 }
 
 /* ---------- 控件（简约化） ---------- */
