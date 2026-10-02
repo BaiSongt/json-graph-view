@@ -1,0 +1,34 @@
+{
+  "name": "json-graph-view",
+  "version": "1.0.0",
+  "description": "将任意 JSON 可视化为关系图的 React 组件：自动分层布局、多套主题、节点联动查看数据块",
+  "type": "module",
+  "main": "./json-graph-view.cjs",
+  "module": "./json-graph-view.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./json-graph-view.js",
+      "require": "./json-graph-view.cjs"
+    },
+    "./style.css": "./style.css"
+  },
+  "files": [
+    "json-graph-view.js",
+    "json-graph-view.cjs",
+    "style.css",
+    "types",
+    "README.md"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "peerDependencies": {
+    "@xyflow/react": "^12.0.0",
+    "react": ">=17",
+    "react-dom": ">=17"
+  },
+  "keywords": ["json", "visualization", "graph", "react", "jsoncrack", "flow", "diagram"],
+  "license": "MIT"
+}

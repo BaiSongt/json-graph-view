@@ -1,0 +1,318 @@
+/* json-graph-view 模块样式（简约扁平风）—— 全部颜色走主题注入的 CSS 变量 */
+
+.jgv-root {
+  --jgv-bg: #0b1020;
+  --jgv-bg-dot: rgba(148, 163, 184, 0.14);
+  --jgv-node-bg: #151c33;
+  --jgv-node-border: #2a3557;
+  --jgv-header-bg: #1d2745;
+  --jgv-text: #e2e8f0;
+  --jgv-text-dim: #8b96b0;
+  --jgv-accent: #38bdf8;
+  --jgv-edge: #3b4a72;
+  --jgv-selected: #38bdf8;
+  --jgv-k-object: #a78bfa;
+  --jgv-k-array: #34d399;
+  --jgv-k-string: #fbbf24;
+  --jgv-k-number: #60a5fa;
+  --jgv-k-boolean: #f472b6;
+  --jgv-k-null: #94a3b8;
+  --jgv-panel-bg: #10162b;
+  --jgv-panel-border: #24304f;
+  --jgv-code-key: #7dd3fc;
+  --jgv-code-string: #fbbf24;
+  --jgv-code-number: #93c5fd;
+  --jgv-code-bool: #f472b6;
+  --jgv-code-null: #94a3b8;
+  --jgv-shadow: 0 2px 10px rgba(2, 6, 23, 0.3);
+  --jgv-node-radius: 8px;
+  --jgv-edge-width: 1.4px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+  color: var(--jgv-text);
+  overflow: hidden;
+}
+
+/* ---------- 画布背景 ---------- */
+.jgv-canvas-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--jgv-bg);
+}
+.jgv-canvas-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--jgv-bg-dot) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.jgv-root .react-flow {
+  background: transparent;
+}
+.jgv-root .react-flow__attribution {
+  display: none;
+}
+
+/* ---------- 节点（扁平简约） ---------- */
+.jgv-node {
+  background: var(--jgv-node-bg);
+  border: 1px solid var(--jgv-node-border);
+  border-radius: var(--jgv-node-radius);
+  box-shadow: var(--jgv-shadow);
+  min-width: 180px;
+  max-width: 340px;
+  overflow: hidden;
+  font-size: 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+.jgv-node:hover {
+  border-color: var(--jgv-accent);
+}
+.jgv-node.jgv-selected {
+  border-color: var(--jgv-selected);
+  box-shadow: 0 0 0 1.5px var(--jgv-selected), var(--jgv-shadow);
+}
+.jgv-root .react-flow__node.jgv-dim .jgv-node {
+  opacity: 0.3;
+  filter: saturate(0.4);
+}
+.jgv-root .react-flow__node.jgv-match .jgv-node {
+  border-color: var(--jgv-selected);
+  box-shadow: 0 0 0 1.5px var(--jgv-selected), var(--jgv-shadow);
+}
+
+.jgv-node-header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--jgv-node-border);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+.jgv-kind-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+}
+.jgv-node-title {
+  color: var(--jgv-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.jgv-node-count {
+  margin-left: auto;
+  flex: none;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--jgv-text-dim);
+  padding: 0 6px;
+  border: 1px solid var(--jgv-node-border);
+  border-radius: 999px;
+  line-height: 15px;
+}
+
+.jgv-node-rows {
+  padding: 3px 0;
+}
+.jgv-row {
+  display: grid;
+  grid-template-columns: minmax(0, 42%) minmax(0, 58%);
+  gap: 8px;
+  padding: 3px 12px;
+  line-height: 1.6;
+}
+.jgv-row.jgv-row-linked {
+  border-left: 2px solid color-mix(in srgb, var(--jgv-accent) 45%, transparent);
+}
+.jgv-row-key {
+  color: var(--jgv-text);
+  opacity: 0.88;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.jgv-row-val {
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 11px;
+}
+.jgv-val-string { color: var(--jgv-k-string); }
+.jgv-val-number { color: var(--jgv-k-number); }
+.jgv-val-boolean { color: var(--jgv-k-boolean); }
+.jgv-val-null { color: var(--jgv-k-null); font-style: italic; }
+.jgv-val-object { color: var(--jgv-k-object); font-weight: 600; }
+.jgv-val-array { color: var(--jgv-k-array); font-weight: 600; }
+
+.jgv-row-more {
+  padding: 3px 12px;
+  color: var(--jgv-text-dim);
+  font-size: 11px;
+}
+
+.jgv-leaf {
+  padding: 9px 12px;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 12px;
+  max-width: 300px;
+  word-break: break-all;
+}
+.jgv-leaf-label {
+  font-size: 10px;
+  color: var(--jgv-text-dim);
+  margin-bottom: 2px;
+  font-family: inherit;
+}
+
+/* ---------- 边 ---------- */
+.jgv-root .react-flow__edge-path {
+  stroke: var(--jgv-edge);
+  stroke-width: var(--jgv-edge-width);
+}
+.jgv-root .react-flow__edge.selected .react-flow__edge-path {
+  stroke: var(--jgv-selected);
+}
+.jgv-root .react-flow__arrowhead polyline {
+  stroke: var(--jgv-edge);
+  fill: var(--jgv-edge);
+}
+.jgv-root .react-flow__edge-text {
+  fill: var(--jgv-text-dim);
+  font-size: 10px;
+}
+.jgv-root .react-flow__edge-textbg {
+  fill: transparent;
+}
+
+/* ---------- 控件（简约化） ---------- */
+.jgv-root .react-flow__controls {
+  box-shadow: var(--jgv-shadow);
+  border: 1px solid var(--jgv-panel-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.jgv-root .react-flow__controls-button {
+  background: var(--jgv-panel-bg);
+  border-bottom: 1px solid var(--jgv-panel-border);
+  color: var(--jgv-text);
+  fill: var(--jgv-text);
+  width: 22px;
+  height: 22px;
+}
+.jgv-root .react-flow__controls-button:hover {
+  background: var(--jgv-header-bg);
+}
+.jgv-root .react-flow__controls-button svg {
+  max-width: 11px;
+  max-height: 11px;
+}
+.jgv-root .react-flow__minimap {
+  background: var(--jgv-panel-bg);
+  border: 1px solid var(--jgv-panel-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ---------- 详情面板 ---------- */
+.jgv-detail {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  bottom: 12px;
+  width: 340px;
+  max-width: calc(100% - 24px);
+  background: var(--jgv-panel-bg);
+  border: 1px solid var(--jgv-panel-border);
+  border-radius: 10px;
+  box-shadow: var(--jgv-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 20;
+  animation: jgv-slide-in 0.18s ease;
+}
+@keyframes jgv-slide-in {
+  from { transform: translateX(16px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.jgv-detail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--jgv-panel-border);
+}
+.jgv-detail-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+.jgv-detail-path {
+  padding: 7px 12px;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 11px;
+  color: var(--jgv-accent);
+  border-bottom: 1px solid var(--jgv-panel-border);
+  word-break: break-all;
+}
+.jgv-detail-body {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+}
+.jgv-code {
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.65;
+  white-space: pre;
+  margin: 0;
+}
+.jgv-code-key { color: var(--jgv-code-key); }
+.jgv-code-string { color: var(--jgv-code-string); }
+.jgv-code-number { color: var(--jgv-code-number); }
+.jgv-code-bool { color: var(--jgv-code-bool); }
+.jgv-code-null { color: var(--jgv-code-null); font-style: italic; }
+.jgv-code-punct { color: var(--jgv-text-dim); }
+
+.jgv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--jgv-panel-border);
+  background: transparent;
+  color: var(--jgv-text-dim);
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.jgv-btn:hover {
+  color: var(--jgv-text);
+  border-color: var(--jgv-accent);
+}
+
+/* ---------- 顶部提示 ---------- */
+.jgv-notice {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  background: var(--jgv-panel-bg);
+  border: 1px solid var(--jgv-panel-border);
+  color: var(--jgv-text-dim);
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  box-shadow: var(--jgv-shadow);
+}
